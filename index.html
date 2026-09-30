@@ -1,1 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Freedom Method | Personalised Nicotine Addiction Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        .progress-bar {
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-card {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-card:hover {
+            transform: translateY(-2px);
+            border-color: #3b82f6;
+        }
+        .option-card.selected {
+            border-color: #22c55e;
+            background-color: rgba(34, 197, 94, 0.1);
+        }
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
+        }
+        .pulse-btn {
+            animation: pulse-subtle 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between bg-slate-950 text-slate-100">
 
+    <!-- Top Announcement Bar (Trust & Urgency) -->
+    <header class="w-full bg-slate-900 border-b border-slate-800 py-3 px-4 text-center text-xs md:text-sm font-medium text-slate-300 flex items-center justify-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+        <span><strong>South African Freedom Assessment:</strong> Confidential Nicotine Trap Diagnostic (Updated for 2026)</span>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-2xl mx-auto w-full px-4 py-6 md:py-10 flex-grow flex flex-col justify-center">
+
+        <!-- Progress Tracker (Hidden on Hero and Final Pitch) -->
+        <div id="progress-container" class="mb-6 hidden">
+            <div class="flex justify-between items-center text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                <span id="step-label">Question 1 of 8</span>
+                <span id="progress-percent" class="text-emerald-400">12%</span>
+            </div>
+            <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden p-0.5 border border-slate-700/50">
+                <div id="progress-bar" class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full progress-bar" style="width: 12.5%"></div>
+            </div>
+        </div>
+
+        <!-- ================= STEP 0: HERO / PATTERN INTERRUPT ================= -->
+        <div id="step-0" class="quiz-step flex flex-col items-center text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold mb-6">
+                <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+                For South Africans Aged 35–65 Smoking 5+ Cigarettes Daily
+            </div>
+
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-4 leading-tight">
+                Why Willpower, Vapes & Gums <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-amber-400">Keep You Trapped</span> (And How To Escape In 3 Hours)
+            </h1>
+
+            <p class="text-slate-300 text-base md:text-lg mb-8 leading-relaxed max-w-xl">
+                If you’ve tried quitting in SA and felt like you were giving up your best friend during stress, coffee, or a weekend braai... it’s <strong>not your fault</strong>. Take this 90-second diagnostic to uncover your <em>Nicotine Trap Profile</em>.
+            </p>
+
+            <!-- Value Bullets -->
+            <div class="w-full bg-slate-900/80 border border-slate-800 rounded-2xl p-5 mb-8 text-left space-y-3">
+                <div class="flex items-start gap-3 text-slate-200 text-sm">
+                    <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+                    <span>Expose the exact psychological illusion keeping you chained to cigarettes.</span>
+                </div>
+                <div class="flex items-start gap-3 text-slate-200 text-sm">
+                    <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+                    <span>Calculate how much of your hard-earned Rands are being burnt every single month.</span>
+                </div>
+                <div class="flex items-start gap-3 text-slate-200 text-sm">
+                    <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+                    <span>Discover why quitting <strong>does not require suffering, weight gain, or willpower</strong>.</span>
+                </div>
+            </div>
+
+            <button onclick="nextStep(1)" class="w-full py-4 px-8 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-950 font-extrabold text-lg md:text-xl rounded-xl shadow-lg shadow-emerald-500/20 pulse-btn transition transform active:scale-98 flex items-center justify-center gap-3">
+                <span>START FREE ANALYSIS NOW</span>
+                <i data-lucide="arrow-right" class="w-6 h-6"></i>
+            </button>
+            <p class="text-slate-500 text-xs mt-3 flex items-center gap-1">
+                <i data-lucide="lock" class="w-3 h-3"></i> 100% Confidential • Takes less than 2 minutes
+            </p>
+        </div>
+
+        <!-- ================= STEP 1: DEMOGRAPHICS / QUALIFICATION ================= -->
+        <div id="step-1" class="quiz-step hidden">
+            <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest block mb-2">Section 1: Qualification</span>
+            <h2 class="text-xl md:text-2xl font-bold text-white mb-2">How long have you been smoking cigarettes?</h2>
+            <p class="text-slate-400 text-sm mb-6">This helps us gauge how deeply conditioned the psychological habit loop is in your brain.</p>
+
+            <div class="space-y-3">
+                <button onclick="selectOption(1, 'Under 5 years', 10)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200 group-hover:text-white">Less than 5 years</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(1, '5-15 years', 20)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200 group-hover:text-white">5 to 15 years</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(1, '15-30 years', 30)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200 group-hover:text-white">15 to 30 years</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(1, '30+ years', 40)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200 group-hover:text-white">30+ years (Long-term smoker)</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= STEP 2: DAILY HABIT & SA COST AGITATION ================= -->
+        <div id="step-2" class="quiz-step hidden">
+            <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest block mb-2">Section 2: Daily Consumption</span>
+            <h2 class="text-xl md:text-2xl font-bold text-white mb-2">On average, how many cigarettes do you smoke per day?</h2>
+            <p class="text-slate-400 text-sm mb-6">At current SA retail prices (~R55–R60 per pack), this adds up rapidly.</p>
+
+            <div class="space-y-3">
+                <button onclick="selectOption(2, '1-10', 10, 30)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <div>
+                        <div class="font-semibold text-slate-200">1 to 10 cigarettes / day</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Approx. R850 – R1,700 per month</div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(2, '10-20', 20, 55)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <div>
+                        <div class="font-semibold text-slate-200">10 to 20 cigarettes (1 pack / day)</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Approx. R1,700 – R3,400 per month</div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(2, '20-30', 30, 85)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <div>
+                        <div class="font-semibold text-slate-200">20 to 30 cigarettes / day</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Approx. R3,400 – R5,100 per month</div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(2, '30+', 40, 115)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <div>
+                        <div class="font-semibold text-slate-200">30+ cigarettes (Heavy Smoker)</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Over R5,100+ burned every month</div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= STEP 3: FAILED METHODS (WILLPOWER / NRT AGITATION) ================= -->
+        <div id="step-3" class="quiz-step hidden">
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-widest block mb-2">Section 3: Past Attempts</span>
+            <h2 class="text-xl md:text-2xl font-bold text-white mb-2">Which methods have you tried in the past to quit?</h2>
+            <p class="text-slate-400 text-sm mb-6">Select the primary method you relied on during your previous attempt(s).</p>
+
+            <div class="space-y-3">
+                <button onclick="selectOption(3, 'Willpower', 25)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <div>
+                        <div class="font-semibold text-slate-200">Cold Turkey / Pure Willpower</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Feeling deprived, irritable, and constantly fighting cravings</div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(3, 'NRT', 20)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <div>
+                        <div class="font-semibold text-slate-200">Nicotine Gums, Patches, or Sprays</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Feeding the monster nicotine while expecting to break the habit</div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(3, 'Vaping', 20)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <div>
+                        <div class="font-semibold text-slate-200">Vaping / E-Cigarettes</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Swapped one nicotine delivery device for a higher-dosage one</div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(3, 'Cutting Down', 15)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <div>
+                        <div class="font-semibold text-slate-200">Cutting Down / Gradual Reduction</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Made each cigarette seem 10x more precious and stressful</div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- INTERSTITIAL INSIGHT 1: Educational Micro-Copy (Pattern Interrupt) -->
+        <div id="interstitial-1" class="quiz-step hidden text-center">
+            <div class="w-14 h-14 bg-red-500/10 border border-red-500/30 rounded-full flex items-center justify-center mx-auto mb-4 text-red-400">
+                <i data-lucide="alert-circle" class="w-8 h-8"></i>
+            </div>
+            <span class="text-xs font-bold text-red-400 uppercase tracking-widest block mb-1">Critical Insight Discovered</span>
+            <h3 class="text-2xl font-extrabold text-white mb-4">Why 98% of Quitting Attempts Fail in SA</h3>
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 text-left text-slate-300 text-sm space-y-3 mb-6">
+                <p>
+                    When you use <strong>Willpower, Gums, or Vapes</strong>, you treat smoking as a "bad habit" or replace the physical nicotine.
+                </p>
+                <p>
+                    However, the physical withdrawal from nicotine is so mild it doesn't even wake you up at night! The real reason you suffer is <strong>Psychological Conflict</strong>: believing smoking relieves stress or brings pleasure.
+                </p>
+                <p class="text-emerald-400 font-semibold">
+                    Once you dismantle the mental illusion, the physical craving disappears effortlessly without willpower.
+                </p>
+            </div>
+            <button onclick="nextStep(4)" class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-lg flex items-center justify-center gap-2">
+                <span>Continue Diagnostic</span>
+                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- ================= STEP 4: CULTURAL TRIGGERS (SA CONTEXT) ================= -->
+        <div id="step-4" class="quiz-step hidden">
+            <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest block mb-2">Section 4: Lifestyle Triggers</span>
+            <h2 class="text-xl md:text-2xl font-bold text-white mb-2">When do you feel the STRONGEST urge to light up?</h2>
+            <p class="text-slate-400 text-sm mb-6">Identifies your primary psychological anchor points.</p>
+
+            <div class="space-y-3">
+                <button onclick="selectOption(4, 'Braais & Socialising', 20)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200">Weekend Braais, Drinks & Socialising</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(4, 'Coffee & Mornings', 20)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200">First Coffee in the Morning / Driving to Work</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(4, 'Work Stress & Loadshedding', 25)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200">High Work Stress, Traffic & Daily Frustrations</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(4, 'Boredom & Breaks', 15)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200">Moments of Boredom, Waiting, or Taking Breaks</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= STEP 5: DEEPEST FEAR OF QUITTING ================= -->
+        <div id="step-5" class="quiz-step hidden">
+            <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest block mb-2">Section 5: Emotional Barrier</span>
+            <h2 class="text-xl md:text-2xl font-bold text-white mb-2">What is your BIGGEST fear about stopping cigarettes?</h2>
+            <p class="text-slate-400 text-sm mb-6">Be honest—this fear is created by nicotine itself, not your personality.</p>
+
+            <div class="space-y-3">
+                <button onclick="selectOption(5, 'Fear of Suffering', 20)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200">That I’ll suffer endless cravings and mood swings</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(5, 'Fear of Weight Gain', 15)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200">That I’ll gain weight by substituting with food</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(5, 'Fear of Losing Pleasure', 25)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200">That I’ll never enjoy socialising, braais, or coffee again</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(5, 'Fear of Losing Stress Relief', 25)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200">That I won't have a way to handle intense stress or anxiety</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= STEP 6: HEALTH IMPACT (AGE 35-65 FOCUS) ================= -->
+        <div id="step-6" class="quiz-step hidden">
+            <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest block mb-2">Section 6: Health & Energy</span>
+            <h2 class="text-xl md:text-2xl font-bold text-white mb-2">Which physical symptom is worrying you most lately?</h2>
+            <p class="text-slate-400 text-sm mb-6">Between 35 and 65, nicotine’s cumulative toll accelerates exponentially.</p>
+
+            <div class="space-y-3">
+                <button onclick="selectOption(6, 'Shortness of breath', 20)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200">Morning coughing & shortness of breath during light exertion</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(6, 'Low energy', 15)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200">Chronic fatigue, low stamina, and poor sleep quality</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(6, 'Long-term disease fear', 25)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200">Fear of heart disease, stroke, or cancer leaving loved ones behind</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(6, 'Smell and appearance', 10)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200">Feeling ashamed of the smell on clothes, breath, and house</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= STEP 7: COMMITMENT READINESS ================= -->
+        <div id="step-7" class="quiz-step hidden">
+            <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest block mb-2">Section 7: Readiness</span>
+            <h2 class="text-xl md:text-2xl font-bold text-white mb-2">If you could quit smoking WITHOUT cravings, irritability, or weight gain... how ready are you to become a non-smoker?</h2>
+            <p class="text-slate-400 text-sm mb-6">Select your commitment level.</p>
+
+            <div class="space-y-3">
+                <button onclick="selectOption(7, 'Ready today', 30)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200">100% Ready — I want my freedom back immediately</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(7, 'Cautiously optimistic', 20)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200">Interested, but skeptical because I’ve failed before</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+                <button onclick="selectOption(7, 'Just exploring', 10)" class="option-card w-full p-4 rounded-xl border border-slate-800 bg-slate-900 text-left flex items-center justify-between group">
+                    <span class="font-semibold text-slate-200">Just checking if there’s really a method that works</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600 group-hover:text-emerald-400"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= STEP 8: PROCESSING / ANALYSIS ANIMATION ================= -->
+        <div id="step-processing" class="quiz-step hidden text-center py-10">
+            <div class="w-20 h-20 relative mx-auto mb-6">
+                <div class="w-20 h-20 rounded-full border-4 border-slate-800 border-t-emerald-500 animate-spin"></div>
+                <i data-lucide="cpu" class="w-8 h-8 text-emerald-400 absolute inset-0 m-auto"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-2">Analyzing Your Nicotine Trap Profile...</h3>
+            <p class="text-slate-400 text-sm mb-6">Evaluating response triggers, psychological dependencies, and financial waste.</p>
+
+            <div class="max-w-md mx-auto bg-slate-900 border border-slate-800 rounded-xl p-4 text-left space-y-3 text-xs text-slate-300">
+                <div id="proc-check-1" class="flex items-center gap-2 opacity-30 transition-opacity">
+                    <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                    <span>Quantifying annual South African Rand expenditure...</span>
+                </div>
+                <div id="proc-check-2" class="flex items-center gap-2 opacity-30 transition-opacity">
+                    <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                    <span>Mapping psychological triggers (Stress vs Social braais)...</span>
+                </div>
+                <div id="proc-check-3" class="flex items-center gap-2 opacity-30 transition-opacity">
+                    <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                    <span>Matching with Allen Carr's Non-Willpower Solution Matrix...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= STEP 9: RESULTS & BENSON VSL PITCH ================= -->
+        <div id="step-results" class="quiz-step hidden">
+            <!-- Custom Dynamic Score Header -->
+            <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-emerald-500/30 rounded-2xl p-6 mb-8 text-center relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl"></div>
+
+                <span class="inline-block px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full text-xs font-bold tracking-wider uppercase mb-3">
+                    Assessment Complete
+                </span>
+
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-2">Your Nicotine Trap Severity Score:</h2>
+                <div class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-amber-300 to-emerald-400 my-2" id="score-display">
+                    84 / 100
+                </div>
+                <p class="text-slate-300 text-sm max-w-lg mx-auto">
+                    <strong>Status: Highly Reversible Psychological Trap.</strong> Your main obstacle is not weakness—it is the belief that cigarettes provide genuine stress relief and social enjoyment.
+                </p>
+
+                <!-- Personalised Stats Grid -->
+                <div class="grid grid-cols-2 gap-3 mt-6 pt-6 border-t border-slate-800/80 text-left">
+                    <div class="bg-slate-900/90 border border-slate-800 p-3 rounded-lg">
+                        <div class="text-xs text-slate-400">Annual Money Burned in SA:</div>
+                        <div class="text-lg font-bold text-amber-400" id="annual-cost-display">R24,000+</div>
+                    </div>
+                    <div class="bg-slate-900/90 border border-slate-800 p-3 rounded-lg">
+                        <div class="text-xs text-slate-400">Primary Core Trap:</div>
+                        <div class="text-sm font-bold text-emerald-400" id="trigger-display">Stress & Social Illusion</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VSL / Sales Letter Body (Benson Framework) -->
+            <div class="space-y-6 text-slate-300 text-base leading-relaxed">
+
+                <!-- Epiphany & Mechanism -->
+                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-4">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i data-lucide="key" class="w-5 h-5 text-emerald-400"></i>
+                        The Hidden Epiphany: Why You Don't Need Willpower
+                    </h3>
+                    <p>
+                        When you light a cigarette during a stressful day or at a Saturday braai, you feel a sense of relaxation. But science proves: <strong>the cigarette didn't cure your stress—it only relieved the physical withdrawal caused by the PREVIOUS cigarette!</strong>
+                    </p>
+                    <p>
+                        A non-smoker feels that level of calm 24/7 naturally. You are currently paying thousands of Rands every year just to briefly feel the peace that non-smokers enjoy for free!
+                    </p>
+                </div>
+
+                <!-- Introducing The Solution (The Method) -->
+                <div class="text-center py-4">
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-white mb-3">
+                        Introducing: <span class="text-emerald-400">The Freedom Easy-Quit Method</span>
+                    </h3>
+                    <p class="text-slate-300 text-sm md:text-base max-w-lg mx-auto">
+                        The simple, step-by-step breakthrough system designed specifically for South Africans ready to end nicotine addiction in hours—without cravings, mood swings, or gaining weight.
+                    </p>
+                </div>
+
+                <!-- Product Box / Deliverables -->
+                <div class="bg-slate-900 border-2 border-emerald-500/40 rounded-2xl p-6 shadow-2xl relative">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-emerald-500 text-slate-950 px-4 py-0.5 rounded-full text-xs font-black tracking-wider uppercase">
+                        Instant Digital Access
+                    </div>
+
+                    <ul class="space-y-3 my-4">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+                            <div>
+                                <strong class="text-white">The Complete Step-by-Step Freedom Guide:</strong> 
+                                <span class="text-sm text-slate-300 block">Deconstructs the brainwashing, eliminates the desire to smoke, and lets you smoke your very last cigarette with absolute joy.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+                            <div>
+                                <strong class="text-white">The SA Social & Braai Survival Protocol:</strong> 
+                                <span class="text-sm text-slate-300 block">How to enjoy drinks, braais, and coffee without feeling a single ounce of envy or temptation.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+                            <div>
+                                <strong class="text-white">Zero-Weight-Gain Guarantee Module:</strong> 
+                                <span class="text-sm text-slate-300 block">How to break the hand-to-mouth reflex without substituting with snacks or sweets.</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <!-- Price & CTA Section -->
+                    <div class="mt-8 pt-6 border-t border-slate-800 text-center">
+                        <div class="text-slate-400 text-xs line-through mb-1">Regular Price: R850.00</div>
+                        <div class="flex items-center justify-center gap-2 mb-2">
+                            <span class="text-sm font-semibold text-slate-300">Today’s SA Special:</span>
+                            <span class="text-3xl md:text-4xl font-extrabold text-emerald-400">R297.00</span>
+                            <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded">Save 65%</span>
+                        </div>
+                        <p class="text-slate-400 text-xs mb-6">
+                            Less than the cost of just 5 packs of cigarettes! Pay once, stay free for life.
+                        </p>
+
+                        <!-- Direct Response CTA Button -->
+                        <a href="https://your-checkout-link.com" target="_blank" class="w-full py-5 px-8 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-400 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xl rounded-xl shadow-xl shadow-emerald-500/25 pulse-btn transition transform active:scale-98 flex items-center justify-center gap-3">
+                            <span>GET INSTANT FREEDOM ACCESS</span>
+                            <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                        </a>
+
+                        <!-- Guarantee Badge -->
+                        <div class="mt-6 flex items-center justify-center gap-3 text-slate-400 text-xs text-left max-w-md mx-auto">
+                            <i data-lucide="shield-check" class="w-10 h-10 text-emerald-400 shrink-0"></i>
+                            <span><strong>100% Risk-Free 30-Day Guarantee:</strong> Follow the simple step-by-step method. If you don't comfortably break free from smoking, simply send us an email for a full 100% refund.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonials / Social Proof -->
+                <div class="pt-6 space-y-4">
+                    <h4 class="text-lg font-bold text-white text-center">South Africans Who Reclaimed Their Lives:</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                            <div class="flex text-amber-400 mb-2">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <p class="text-xs text-slate-300 italic mb-3">"I smoked 30 Lexingtons a day for 24 years in Joburg. I thought I'd die with a smoke in my hand. This method changed my brain in one afternoon. Haven't touched one in 14 months!"</p>
+                            <span class="text-xs font-bold text-white block">— Johan V., Pretoria (Age 52)</span>
+                        </div>
+                        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                            <div class="flex text-amber-400 mb-2">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <p class="text-xs text-slate-300 italic mb-3">"I was terrified about Saturday braais with friends who smoke. But reading this opened my eyes. I sat at a braai 3 days later with zero craving!"</p>
+                            <span class="text-xs font-bold text-white block">— Sarah M., Cape Town (Age 44)</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full border-t border-slate-800/60 py-6 text-center text-slate-500 text-xs">
+        <div class="max-w-2xl mx-auto px-4 space-y-2">
+            <p>© 2026 The Freedom Method. All Rights Reserved.</p>
+            <p class="text-slate-600">Disclaimer: This site is for educational purposes. Results may vary depending on individual commitment to follow the instructions.</p>
+        </div>
+    </footer>
+
+    <!-- Logic Script -->
+    <script>
+        // State variables
+        let currentStep = 0;
+        const totalSteps = 7;
+        let score = 30;
+        let selectedDailyPacks = 55; // default pack multiplier
+        let primaryTrigger = "Stress & Social Illusion";
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        function updateProgress() {
+            if (currentStep > 0 && currentStep <= totalSteps) {
+                document.getElementById('progress-container').classList.remove('hidden');
+                document.getElementById('step-label').innerText = `Question ${currentStep} of ${totalSteps}`;
+                const pct = Math.round((currentStep / totalSteps) * 100);
+                document.getElementById('progress-percent').innerText = `${pct}%`;
+                document.getElementById('progress-bar').style.width = `${pct}%`;
+            } else {
+                document.getElementById('progress-container').classList.add('hidden');
+            }
+        }
+
+        function nextStep(step) {
+            document.querySelectorAll('.quiz-step').forEach(el => el.classList.add('hidden'));
+            currentStep = step;
+            updateProgress();
+
+            if (step === 'processing') {
+                document.getElementById('step-processing').classList.remove('hidden');
+                runProcessingAnimation();
+            } else if (step === 'results') {
+                document.getElementById('step-results').classList.remove('hidden');
+                renderResults();
+            } else {
+                const target = document.getElementById(`step-${step}`);
+                if (target) target.classList.remove('hidden');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function selectOption(stepNum, val, scorePoints, costFactor) {
+            score += scorePoints;
+            if (costFactor) selectedDailyPacks = costFactor;
+            if (stepNum === 4) primaryTrigger = val;
+
+            if (stepNum === 3) {
+                // Show educational interstitial after question 3
+                nextStep('interstitial-1');
+            } else if (stepNum < totalSteps) {
+                nextStep(stepNum + 1);
+            } else {
+                nextStep('processing');
+            }
+        }
+
+        function runProcessingAnimation() {
+            setTimeout(() => {
+                document.getElementById('proc-check-1').classList.remove('opacity-30');
+            }, 600);
+            setTimeout(() => {
+                document.getElementById('proc-check-2').classList.remove('opacity-30');
+            }, 1400);
+            setTimeout(() => {
+                document.getElementById('proc-check-3').classList.remove('opacity-30');
+            }, 2200);
+            setTimeout(() => {
+                nextStep('results');
+            }, 3000);
+        }
+
+        function renderResults() {
+            // Cap score max 96
+            const finalScore = Math.min(score, 96);
+            document.getElementById('score-display').innerText = `${finalScore} / 100`;
+
+            // Calculate annual expenditure based on daily pack choice (Approx R60/pack)
+            // costFactor represents approximate daily cost in ZAR
+            const annualCost = Math.round(selectedDailyPacks * 365);
+            document.getElementById('annual-cost-display').innerText = `R${annualCost.toLocaleString('en-ZA')}`;
+            document.getElementById('trigger-display').innerText = primaryTrigger;
+        }
+    </script>
+</body>
+</html>
+```eof
+
+### Quiz Highlights & Copy Structure Built Into The Code:
+
+1. **Pattern Interrupt & SA Context Hook:** Targets South Africans aged 35–65 specifically, directly mentioning real costs (Rands), local habits (braais, morning coffee, loadshedding/work stress), and traditional failed tools (gums, vapes, willpower).
+2. **John Benson VSL Formula Integration:**
+   * **Step 0–3:** Hook, qualification, and pain agitation (money wasted in SA + failed past attempts).
+   * **Interstitial:** Epiphany revelation explaining why physical withdrawal is minor while mental brainwashing is the real trap.
+   * **Step 4–7:** Micro-commitments, identifying emotional fears, and quantifying readiness.
+   * **Step 8–9:** Processing diagnostic animation leading to personalized results, core mechanism disclosure, pitch, and risk-free offer.
+3. **Backend Positioned as a "Method" (Not Just an eBook):** Presented seamlessly as *The Freedom Easy-Quit Method*, focusing on transformation, immediate relief, and instant digital access.
